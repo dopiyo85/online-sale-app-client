@@ -6,6 +6,26 @@ import UploadComponent from "./UploadComponent";
 import {v4} from 'uuid'; //new code
 
 function NewProductForm(props) {
+
+    // function to upload image to backend
+    function uploadImage(event, productId){
+        event.preventDefault();
+        console.log(event.target.file)
+        let formData = new FormData();
+        let image = document.querySelector("#formFile").files[0]; // updated to reflect if of input for image
+
+        formData.append("file", image);
+
+        let options = {
+            hearders: {
+                "Content-Type":"multipart/form-data"
+            }
+        }
+        axios.post(`http://localhost:5000/upload-image/${productId}`, formData, options)
+        .then(res =>{
+            console.log(res.data)
+        }).catch(err => console.log(err));
+    }
     
     // Function for handling onsubmission event
     function handleNewProductFormSubmission(event){
@@ -15,14 +35,19 @@ function NewProductForm(props) {
         // console.log(event.target.description.value)
         // console.log(event.target.quantity.value);
 
+        let newProductId = v4();  // move the product id here
+
         props.onNewProductCreation({
             name: event.target.name.value,
             price: event.target.price.value,
             description: event.target.description.value,
             quantity: event.target.quantity.value,
             image:event.target.file,
-            id: v4()
+            id: newProductId
         })
+
+        // call function to upload image when form is submitted
+        uploadImage(event, newProductId);
 
     }
 
