@@ -20,7 +20,7 @@ class ProductControl extends Component {
         }
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/products')
+        axios.get('http://localhost:5000/product')
         .then(res =>{
             console.log(res.data)
             this.setState({
@@ -55,7 +55,7 @@ class ProductControl extends Component {
 
     // Method to handle adding a new product
     handleAddingNewProduct = (newProduct) =>{   
-        axios.post('http://localhost:5000/products', newProduct)
+        axios.post('http://localhost:5000/product', newProduct)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         this.setState({
@@ -63,7 +63,7 @@ class ProductControl extends Component {
         })
     };
     handleDeletingProduct = (id) =>{
-        axios.delete('http://localhost:5000/products/'+id)
+        axios.delete('http://localhost:5000/product/'+id)
             .then(res => console.log(res.data))
             .catch((error) =>{
                 console.log(error)
@@ -82,7 +82,7 @@ class ProductControl extends Component {
     }
     handleEditingProduct = (editedProduct) =>{
 
-        axios.put('http://localhost:5000/products/' + this.state.selectedProduct._id, editedProduct)
+        axios.put('http://localhost:5000/product/' + this.state.selectedProduct._id, editedProduct)
             .then(res =>console.log(res.data))
         
         this.setState({
