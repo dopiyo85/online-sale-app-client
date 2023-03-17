@@ -2,12 +2,14 @@ import React from 'react';
 import './styles/productForm.css';
 import PropTypes from 'prop-types'; 
 import UploadComponent from "./UploadComponent";
+import axios from 'axios';
 
 import {v4} from 'uuid'; //new code
 
 function NewProductForm(props) {
 
     // function to upload image to backend
+    // You can move this into product control
     function uploadImage(event, productId){
         event.preventDefault();
         console.log(event.target.file)
@@ -42,12 +44,17 @@ function NewProductForm(props) {
             price: event.target.price.value,
             description: event.target.description.value,
             quantity: event.target.quantity.value,
-            image:event.target.file,
+            image: event.target.file,
             id: newProductId
         })
 
         // call function to upload image when form is submitted
+        // this might fail because the product creation might take time yet this function filters by existing product
+        // solution will be to remove the filter from the upload endpoint, and just upload the file
+        // or make it work in async (upload the image after the product has been created in db)
         uploadImage(event, newProductId);
+
+       
 
     }
 
@@ -115,7 +122,7 @@ function NewProductForm(props) {
                     <button type="submit" className="btn btn-primary btn-ghost">Add Product</button>    
                 </form>
 
-                < UploadComponent id='' />
+                {/* < UploadComponent id='' /> */} 
             </div>
         </React.Fragment>
     )
