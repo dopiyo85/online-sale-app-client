@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/productForm.css';
 import PropTypes from 'prop-types'; 
+import UploadComponent from "./UploadComponent";
 
 import {v4} from 'uuid'; //new code
 
@@ -88,6 +89,8 @@ function NewProductForm(props) {
                     </div>
                     <button type="submit" className="btn btn-primary btn-ghost">Add Product</button>    
                 </form>
+
+                < UploadComponent id='' />
             </div>
         </React.Fragment>
     )
